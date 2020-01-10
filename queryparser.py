@@ -1,7 +1,10 @@
+import query
+
 USER_ACTION_RANDOM = 1
 USER_ACTION_ADD = 2
 USER_ACTION_MODIFY = 3
 USER_ACTION_DELETE = 4
+USER_ACTION_EXIT = 5
 
 ### returns true iff userInput is an integer and upperBound <= userInput <= lowerBound
 def isValidIntInput(userInput, upperBound, lowerBound):
@@ -18,16 +21,27 @@ class QueryParser:
         print("2. Add Food Option.")
         print("3. Modify Food Option.")
         print("4. Delete Food Option.")
+        print("5. Exit.")
         choice = input()
-        while not (isValidIntInput(choice, 1, 4)):
+        while not (isValidIntInput(choice, 1, 5)):
             print("Input must be 1, 2, 3 or 4. Please try again.")
             print("What do you want to do:")
             print("1. Get random pick.")
             print("2. Add Food Option.")
             print("3. Modify Food Option.")
             print("4. Delete Food Option.")
+            print("5. Exit.")
             choice = input()
         return int(choice)
+
+    def getSelector(self):
+        print("Please enter the ID of the place")
+        selector = input()
+        while not selector.isdigit:
+            print("ID must be an integer. Please try again.")
+            print("Please enter the ID of the place")
+            selector = input()
+        return int(selector)
 
     def getName(self):
         print("What is the name of this place?")
@@ -84,33 +98,28 @@ class QueryParser:
             choices = input().split()
         return list(map(int, choices))
 
-    def getRandomFoodOption(self):
-        randomFoodOption = "ARandomFoodPlace (Stub method)" # todo: get rand option
-        return randomFoodOption
-
-    def getFoodOptionFromUser(self):
-        name = self.getName()
-        mealTimes = self.getMealTimes()
-        travelTime = self.getTravelTime()
-        categories = self.getCategories()
-        # debugging
-        print(name)
-        print(mealTimes)
-        print(travelTime)
-        print(categories)
-
-    def getQuery(self):
-        userAction = self.getUserAction()
+    # prompts the user for input, depending on userAction.
+    # Returns a query containing the information.
+    def getQuery(self, userAction):
         if userAction == USER_ACTION_RANDOM:
-            print(self.getRandomFoodOption())
+            return query.GetRandomFoodOptionQuery()
         elif userAction == USER_ACTION_ADD:
-            self.getFoodOptionFromUser()
+            name = self.getName()
+            mealTimes = self.getMealTimes()
+            travelTime = self.getTravelTime()
+            categories = self.getCategories()
+            return query.AddFoodOptionQuery(name, mealTimes, travelTime, categories)
         elif userAction == USER_ACTION_MODIFY:
-            pass
+            # todo: user action modify needs to be able to skip values
+            selector = self.getSelector()
+            name = self.getName()
+            mealTimes = self.getMealTimes()
+            travelTime = self.getTravelTime()
+            categories = self.getCategories()
+            return query.ModifyFoodOptionQuery(selector, name, mealTimes, travelTime, categories)
         elif userAction == USER_ACTION_DELETE:
-            pass
+            selector = self.getSelector()
+            return query.DeleteFoodOptionQuery(selector)
         else:
             print("Error, invalid user action")
-
-qp = QueryParser()
-qp.getQuery()
+            return None

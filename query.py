@@ -4,6 +4,13 @@ class Query:
     def __init__(self):
         pass
 
+class GetRandomFoodOptionQuery(Query):
+    def __init__(self):
+        super(GetRandomFoodOptionQuery, self).__init__()
+    
+    def __str__(self):
+        return "GetRandomFoodOptionQuery"
+
 class AddFoodOptionQuery(Query):
     def __init__(self, name, mealTimes, travelTime, categories):
         super(AddFoodOptionQuery, self).__init__()
