@@ -54,14 +54,14 @@ class QueryParser:
             choices = input().split()
         return list(map(int, choices))
 
-    def getTravellingTime(self):
+    def getTravelTime(self):
         print("How long to travel to this location?")
-        travellingTime = input()
-        while not isValidIntInput(travellingTime, 0, 10000):
+        travelTime = input()
+        while not isValidIntInput(travelTime, 0, 10000):
             print("Travelling time must be an integer between 0 to 10000 inclusive. Please try again.")
             print("How long to travel to this location?")
-            travellingTime = input()
-        return int(travellingTime)
+            travelTime = input()
+        return int(travelTime)
 
     def getCategories(self):
         print("What categories is this place in?")
@@ -91,12 +91,12 @@ class QueryParser:
     def getFoodOptionFromUser(self):
         name = self.getName()
         mealTimes = self.getMealTimes()
-        travellingTime = self.getTravellingTime()
+        travelTime = self.getTravelTime()
         categories = self.getCategories()
         # debugging
         print(name)
         print(mealTimes)
-        print(travellingTime)
+        print(travelTime)
         print(categories)
 
     def getQuery(self):

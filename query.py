@@ -5,30 +5,30 @@ class Query:
         pass
 
 class AddFoodOptionQuery(Query):
-    def __init__(self, name, mealTimes, travellingTime, categories):
+    def __init__(self, name, mealTimes, travelTime, categories):
         super(AddFoodOptionQuery, self).__init__()
         self.name = name
         self.mealTimes = mealTimes
-        self.travellingTime = travellingTime
+        self.travelTime = travelTime
         self.categories = categories
 
     def __str__(self):
-        return "AddFoodOptionQuery: name = {}, mealTimes = {}, travellingTIme = {}, categories = {}".format(
-            self.name, self.mealTimes, self.travellingTime, self.categories)
+        return "AddFoodOptionQuery: name = {}, mealTimes = {}, travelTIme = {}, categories = {}".format(
+            self.name, self.mealTimes, self.travelTime, self.categories)
     
 class ModifyFoodOptionQuery(Query):
     # selector is an integer, which stores the index of the FoodOption being selected for modification
-    def __init__(self, selector, name, mealTimes, travellingTime, categories):
+    def __init__(self, selector, name, mealTimes, travelTime, categories):
         super(ModifyFoodOptionQuery, self).__init__()
         self.selector = selector
         self.name = name
         self.mealTimes = mealTimes
-        self.travellingTime = travellingTime
+        self.travelTime = travelTime
         self.categories = categories
 
     def __str__(self):
-        return "ModifyFoodOptionQuery: selector = {}, name = {}, mealTimes = {}, travellingTIme = {}, categories = {}".format(
-            self.selector, self.name, self.mealTimes, self.travellingTime, self.categories)
+        return "ModifyFoodOptionQuery: selector = {}, name = {}, mealTimes = {}, travelTIme = {}, categories = {}".format(
+            self.selector, self.name, self.mealTimes, self.travelTime, self.categories)
 
 class DeleteFoodOptionQuery(Query):
     def __init__(self, selector):
