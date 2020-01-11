@@ -4,7 +4,8 @@ USER_ACTION_RANDOM = 1
 USER_ACTION_ADD = 2
 USER_ACTION_MODIFY = 3
 USER_ACTION_DELETE = 4
-USER_ACTION_EXIT = 5
+USER_ACTION_DISPLAY_ALL = 5
+USER_ACTION_EXIT = 6
 
 ### returns true iff userInput is an integer and upperBound <= userInput <= lowerBound
 def isValidIntInput(userInput, upperBound, lowerBound):
@@ -21,16 +22,18 @@ class QueryParser:
         print("2. Add Food Option.")
         print("3. Modify Food Option.")
         print("4. Delete Food Option.")
-        print("5. Exit.")
+        print("5. Display all Food Options.")
+        print("6. Exit.")
         choice = input()
-        while not (isValidIntInput(choice, 1, 5)):
+        while not (isValidIntInput(choice, 1, 6)):
             print("Input must be 1, 2, 3 or 4. Please try again.")
             print("What do you want to do:")
             print("1. Get random pick.")
             print("2. Add Food Option.")
             print("3. Modify Food Option.")
             print("4. Delete Food Option.")
-            print("5. Exit.")
+            print("5. Display all Food Options.")
+            print("6. Exit.")
             choice = input()
         return int(choice)
 
@@ -43,15 +46,17 @@ class QueryParser:
             selector = input()
         return int(selector)
 
+    # name is allowed to be any printable string
     def getName(self):
         print("What is the name of this place?")
         name = input()
-        while not name.isalnum():
+        while not name.isprintable():
             print("Name must be alphanumeric. Please try again.")
             print("What is the name of this place?")
             name = input()
         return name
 
+    # mealTimes is a set of space space separated integers e.g. "1 2 4"
     def getMealTimes(self):
         print("What meal times does is this place for?")
         print("1. Breakfast")
@@ -68,6 +73,7 @@ class QueryParser:
             choices = input().split()
         return list(map(int, choices))
 
+    # travelTime is an integer that is between 0 to 10000 inclusive
     def getTravelTime(self):
         print("How long to travel to this location?")
         travelTime = input()
@@ -77,6 +83,8 @@ class QueryParser:
             travelTime = input()
         return int(travelTime)
 
+    # categories is a sequence of space separated integers
+    # todo: make distinct
     def getCategories(self):
         print("What categories is this place in?")
         print("1. Chinese")
@@ -120,6 +128,8 @@ class QueryParser:
         elif userAction == USER_ACTION_DELETE:
             selector = self.getSelector()
             return query.DeleteFoodOptionQuery(selector)
+        elif userAction == USER_ACTION_DISPLAY_ALL:
+            return query.DisplayAllQuery()
         else:
             print("Error, invalid user action")
             return None

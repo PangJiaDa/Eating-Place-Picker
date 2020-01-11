@@ -43,7 +43,14 @@ class DeleteFoodOptionQuery(Query):
         self.selector = selector
     
     def __str__(self):
-        return "AddFoodOptionQuery: selector = {}".format(self.selector)
+        return "DeleteFoodOptionQuery: selector = {}".format(self.selector)
+
+class DisplayAllQuery(Query):
+    def __init__(self):
+        super(DisplayAllQuery, self).__init__()
+    
+    def __str__(self):
+        return "DisplayAllQuery"
 
 # unit tests
 # addQuery = AddFoodOptionQuery("char shao add", [1, 2], 100, [1, 2, 3, 4])
